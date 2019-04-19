@@ -59,6 +59,12 @@ class MusicLibraryController
     genres.each {|genre| puts "#{genres.index(genre) + 1}. #{genre}"}
   end
   
+     def library(klass = Song)
+    sorted_library = klass.all.collect{|object|object if object.class == klass }
+    sorted_library = sorted_library.delete_if {|object|object==nil}
+    sorted_library.uniq
+  end
+  
   def list_songs_by_artist 
     puts "Please enter the name of an artist:"
     input = gets.strip
