@@ -53,14 +53,10 @@ class MusicLibraryController
     Artist.all.sort {|a,b| a.name <=> b.name}.each_with_index{|artist,index| puts "#{index + 1}. #{artist.name}"}
   end 
   
-  def list_genres
-    #prints all genres in the music library in a numbered list (alphabetized by genre name)
-    songs = Genre.all.sort_by {|a,b| a.name <=> b.name} 
-
-    songs.each.with_index(1) do |genre,index|
-      puts "#{index}. #{genre.name}"
-      binding.pry
-    end
+   def list_genres
+    sorted_library = self.library.sort_by {|song|song.genre.name}
+    genres = sorted_library.collect {|song|"#{song.genre.name}"}.uniq
+    genres.each {|genre| puts "#{genres.index(genre) + 1}. #{genre}"}
   end
   
   def list_songs_by_artist 
